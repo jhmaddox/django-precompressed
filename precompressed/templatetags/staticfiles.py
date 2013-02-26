@@ -32,11 +32,12 @@ register = template.Library()
 class StaticFilesNode(staticfiles.StaticFilesNode):
 
     def url(self, context):
-        request = context['request']
         result = super(StaticFilesNode, self).url(context)
-        if (utils.accepts_gzip(request) and
-                utils.should_save_gzipped_copy(result)):
-            return utils.get_gzipped_name(result)
+        if 'request' in context:
+            request = context['request']
+            if (utils.accepts_gzip(request) and
+                    utils.should_save_gzipped_copy(result)):
+                return utils.get_gzipped_name(result)
         return result
 
 

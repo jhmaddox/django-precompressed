@@ -30,7 +30,7 @@ def accepts_gzip(request):
 
     """
 
-    return 'gzip' in request.META['HTTP_ACCEPT_ENCODING']
+    return 'gzip' in request.META.get('HTTP_ACCEPT_ENCODING', '')
 
 
 if 'accepts_gzip' in SETTINGS:
